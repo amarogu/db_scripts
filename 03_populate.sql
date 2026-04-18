@@ -47,7 +47,7 @@ INSERT INTO Autor (nome, nacionalidade, data_nascimento, biografia) VALUES
 -- -----------------------------------------------------
 -- Livro
 -- -----------------------------------------------------
-INSERT INTO Livro (ISBN, Titulo, ano_publicação, genero, Preço, id_editora) VALUES
+INSERT INTO Livro (ISBN, Titulo, ano_publicação, genero, Preço, id_livro_editora) VALUES
 ('9789722009098', 'O Evangelho Segundo Jesus Cristo', 1991, 'Romance', 14.90, 1),
 ('9789722033466', 'Ensaio sobre a Cegueira', 1995, 'Romance', 13.50, 1),
 ('9789897222836', 'Os Maias', 1888, 'Romance,Historico', 12.00, 2),
