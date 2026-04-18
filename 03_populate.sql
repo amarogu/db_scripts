@@ -77,7 +77,7 @@ INSERT INTO Livro_Autor (id_livro, id_autor) VALUES
 -- -----------------------------------------------------
 -- Stand
 -- -----------------------------------------------------
-INSERT INTO Stand (numero, nome_comercial, area_m2, localizacao, id_stand_feira, id_stand_editora) VALUES
+INSERT INTO Stand (numero, nome_comercial, area_m2, localização, id_stand_feira, id_stand_editora) VALUES
 (1, 'Porto Editora Braga', 30.00, 'Zona A - Entrada Principal', 1, 1),
 (2, 'Leya Braga', 25.00, 'Zona A - Lateral Esquerda', 1, 2),
 (3, 'Bertrand Braga', 20.00, 'Zona B - Centro', 1, 3),
@@ -112,7 +112,7 @@ INSERT INTO BarracaComida (numero, nome_comercial, tipo_culinaria, id_feira_barr
 -- -----------------------------------------------------
 -- Apresentacao
 -- -----------------------------------------------------
-INSERT INTO Apresentacao (titulo, sala, data_hora, duracao_min, lotacao_max, estado_tempo, estado_vagas, id_apresentacao_feira, id_apresentacao_livro, id_apresentacao_autor) VALUES
+INSERT INTO Apresentação (titulo, sala, data_hora, duração_min, lotação_max, estado_tempo, estado_vagas, id_apresentação_feira, id_apresentação_livro, id_apresentação_autor) VALUES
 ('Ensaio sobre a Cegueira - 30 anos depois', 'Sala A', '2026-05-03 15:00:00', 60, 50, 'agendada', 'disponivel', 1, 2, 1),
 ('Os Maias - Uma releitura contemporanea', 'Sala B', '2026-05-05 17:00:00', 45, 30, 'agendada', 'disponivel', 1, 3, 2),
 ('Apresentacao de O Paraiso Perdido', 'Auditorio', '2026-06-03 18:00:00', 60, 80, 'agendada', 'disponivel', 2, 8, 6),
