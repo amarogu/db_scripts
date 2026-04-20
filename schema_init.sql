@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Apresentação` (
   `data_hora` DATETIME NOT NULL,
   `duração_min` INT NOT NULL,
   `lotação_max` INT NOT NULL,
-  'sala' VARCHAR(100) NOT NULL,
+  `sala` VARCHAR(100) NOT NULL,
   `estado_tempo` ENUM('agendada', 'a decorrer', ' terminada') NOT NULL,
   `estado_vagas` ENUM('disponível', ' esgotado') NOT NULL,
   `id_apresentação_feira` INT NOT NULL,
