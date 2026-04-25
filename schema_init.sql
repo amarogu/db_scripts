@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Apresentação` (
   PRIMARY KEY (`id_Apresentação`),
   INDEX `feira_idx` (`id_apresentação_feira` ASC) VISIBLE,
   INDEX `livro_idx` (`id_apresentação_livro` ASC) VISIBLE,
-  INDEX `autor_idx` (`id_apresentaçao_autor` ASC) VISIBLE,
+  INDEX `autor_idx` (`id_apresentação_autor` ASC) VISIBLE,
   CONSTRAINT `fk_apresentaçao_feira`
     FOREIGN KEY (`id_apresentação_feira`)
     REFERENCES `mydb`.`Feira` (`id_Feira`)
@@ -196,8 +196,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Apresentação` (
     REFERENCES `mydb`.`Livro` (`id_Livro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_apresentaçao_autor`
-    FOREIGN KEY (`id_apresentaçao_autor`)
+  CONSTRAINT `fk_apresentação_autor`
+    FOREIGN KEY (`id_apresentação_autor`)
     REFERENCES `mydb`.`Autor` (`id_Autor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -403,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Favorita` (
   `id_visitante` INT NOT NULL DEFAULT 0,
   `id_livro` INT NOT NULL DEFAULT 0,
   `id_stand` INT NULL,
-  `data_favoritdo` DATE NOT NULL,
+  `data_favoritado` DATE NOT NULL,
   INDEX `id_visitante_favoritado_idx` (`id_visitante` ASC) VISIBLE,
   INDEX `id_livro_favoritado_idx` (`id_livro` ASC) VISIBLE,
   INDEX `id_livro_stand_idx` (`id_stand` ASC) VISIBLE,

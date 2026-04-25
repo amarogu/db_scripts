@@ -1,0 +1,11 @@
+CREATE UNIQUE INDEX idx_livro_isbn       ON Livro(ISBN);
+CREATE INDEX idx_livro_titulo            ON Livro(Titulo);
+CREATE INDEX idx_apresentacao_data       ON Apresentação(data_hora);
+CREATE INDEX idx_sessao_data             ON SessaoAutografos(data_hora);
+CREATE INDEX idx_feira_nome              ON Feira(nome);
+CREATE INDEX idx_apresentacao_vagas      ON Apresentação(estado_vagas);
+CREATE INDEX idx_visitante_nome          ON Visitante(nome);
+CREATE INDEX idx_compra_visitante_data   ON Compra(id_visitante, data_compra);
+CREATE INDEX idx_inscricao_apr_estado    ON Inscreve_Apresentação(estado);
+CREATE INDEX idx_inscricao_ses_estado    ON Inscreve_Sessao(estado);
+CREATE INDEX idx_inscricao_fei_estado    ON Inscreve_Feira(estado);

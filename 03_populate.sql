@@ -5,11 +5,11 @@ ALTER TABLE mydb.Autor             MODIFY id_Autor INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Livro             MODIFY id_Livro INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Stand             MODIFY id_Stand INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.BarracaComida     MODIFY id_BarracaComida INT NOT NULL AUTO_INCREMENT;
-ALTER TABLE mydb.Apresentacao      MODIFY id_Apresentacao INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE mydb.Apresentação      MODIFY id_Apresentacao INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.SessaoAutografos  MODIFY id_SessaoAutografos INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Visitante         MODIFY id_Visitante INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Administrador     MODIFY id_Administrador INT NOT NULL AUTO_INCREMENT;
-ALTER TABLE mydb.Inscreve_Apresentacao MODIFY id_Inscreve_Apresentacao INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE mydb.Inscreve_Apresentação MODIFY id_Inscreve_Apresentacao INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Inscreve_Sessao   MODIFY id_Inscreve_Sessao INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Inscreve_Feira    MODIFY id_Inscreve_Feira INT NOT NULL AUTO_INCREMENT;
 ALTER TABLE mydb.Compra            MODIFY id_Compra INT NOT NULL AUTO_INCREMENT;
@@ -122,7 +122,7 @@ INSERT INTO Apresentação (titulo, sala, data_hora, duração_min, lotação_ma
 -- -----------------------------------------------------
 -- SessaoAutografos
 -- -----------------------------------------------------
-INSERT INTO SessaoAutografos (data_hora, duracao_min, localizacao, lotacao_max, estado_tempo, estado_vaga, id_sessao_feira, id_sessao_autor) VALUES
+INSERT INTO SessaoAutografos (data_hora, duração_min, localizacao, lotacao_max, estado_tempo, estado_vaga, id_sessao_feira, id_sessao_autor) VALUES
 ('2026-05-03 17:00:00', 60, 'Stand Porto Editora - Zona A', 30, 'agendada', 'disponivel', 1, 1),
 ('2026-05-06 16:00:00', 45, 'Stand Leya - Zona A', 20, 'agendada', 'disponivel', 1, 2),
 ('2026-06-04 17:30:00', 60, 'Stand Almedina - Zona B', 25, 'agendada', 'disponivel', 2, 6),
@@ -152,7 +152,7 @@ INSERT INTO Administrador (nome, email, password, nivel_acesso, telefone) VALUES
 -- -----------------------------------------------------
 -- Inscreve_Feira
 -- -----------------------------------------------------
-INSERT INTO Inscreve_Feira (data_inscricao, tipo_bilhete, preco, estado, id_increve_feira_visitante, id_increve_feira) VALUES
+INSERT INTO Inscreve_Feira (data_inscrição, tipo_bilhete, preco, estado, id_increve_feira_visitante, id_increve_feira) VALUES
 ('2026-04-10', 'Pago', 5.00, 'ativa', 1, 1),
 ('2026-04-11', 'Pago', 5.00, 'ativa', 2, 1),
 ('2026-04-12', 'Gratuito', 0.00, 'ativa', 3, 1),
@@ -164,7 +164,7 @@ INSERT INTO Inscreve_Feira (data_inscricao, tipo_bilhete, preco, estado, id_incr
 -- -----------------------------------------------------
 -- Inscreve_Apresentacao
 -- -----------------------------------------------------
-INSERT INTO Inscreve_Apresentacao (data_inscricao, estado, id_visitante_increve, id_increve_apresentacao) VALUES
+INSERT INTO Inscreve_Apresentacao (data_inscrição, estado, id_visitante_increve, id_increve_apresentacao) VALUES
 ('2026-04-20', 'ativa', 1, 1),
 ('2026-04-21', 'ativa', 2, 1),
 ('2026-04-22', 'ativa', 3, 1),
@@ -189,7 +189,7 @@ INSERT INTO Inscreve_Sessao (data_inscricao, estado, id_increve_sessao_visitante
 -- -----------------------------------------------------
 -- gere
 -- -----------------------------------------------------
-INSERT INTO gere (id_admin, id_feira, data_inicio_gestao, cargo) VALUES
+INSERT INTO gere (id_admin, id_feira, data_inicio_gestão, cargo) VALUES
 (1, 1, '2026-01-10', 'Coordenador'),
 (1, 3, '2026-01-15', 'Coordenador'),
 (2, 1, '2026-02-01', 'Assistente'),
@@ -199,7 +199,7 @@ INSERT INTO gere (id_admin, id_feira, data_inicio_gestao, cargo) VALUES
 -- -----------------------------------------------------
 -- Compra
 -- -----------------------------------------------------
-INSERT INTO Compra (data_compra, quantidade, preco_total, id_visitante, id_stand, id_livro) VALUES
+INSERT INTO Compra (data_compra, quantidade, preço_total, id_visitante, id_stand, id_livro) VALUES
 ('2026-05-02 10:30:00', 1, 14.90, 1, 1, 1),
 ('2026-05-02 11:00:00', 2, 27.00, 2, 1, 2),
 ('2026-05-03 14:00:00', 1, 12.00, 3, 2, 3),
