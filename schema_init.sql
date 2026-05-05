@@ -1,25 +1,11 @@
--- MySQL Workbench Forward Engineering
-
--- begin attached script 'script'
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
--- -----------------------------------------------------
--- Table `mydb`.`Feira`
--- -----------------------------------------------------
+-- Feira
 CREATE TABLE IF NOT EXISTS `mydb`.`Feira` (
   `id_Feira` INT NOT NULL DEFAULT 0,
   `nome` VARCHAR(100) NOT NULL,
@@ -32,9 +18,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Feira` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Editora`
--- -----------------------------------------------------
+-- Editora
 CREATE TABLE IF NOT EXISTS `mydb`.`Editora` (
   `id_Editora` INT NOT NULL DEFAULT 0,
   `nome` VARCHAR(45) NOT NULL,
@@ -44,9 +28,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Editora` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Autor`
--- -----------------------------------------------------
+-- Autor
 CREATE TABLE IF NOT EXISTS `mydb`.`Autor` (
   `id_Autor` INT NOT NULL DEFAULT 0,
   `nome` VARCHAR(100) NOT NULL,
@@ -57,9 +39,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Autor` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Livro`
--- -----------------------------------------------------
+-- Livro
 CREATE TABLE IF NOT EXISTS `mydb`.`Livro` (
   `id_Livro` INT NOT NULL DEFAULT 0,
   `ISBN` CHAR(13) NOT NULL,
@@ -78,9 +58,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Livro` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Livro_Autor`
--- -----------------------------------------------------
+-- Livro_Autor
 CREATE TABLE IF NOT EXISTS `mydb`.`Livro_Autor` (
   `id_livro` INT NOT NULL,
   `id_autor` INT NOT NULL,
@@ -99,9 +77,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Livro_Autor` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Stand`
--- -----------------------------------------------------
+-- Stand
 CREATE TABLE IF NOT EXISTS `mydb`.`Stand` (
   `id_Stand` INT NOT NULL DEFAULT 0,
   `numero` INT NOT NULL,
@@ -126,9 +102,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Stand` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`StockStand`
--- -----------------------------------------------------
+-- StockStand
 CREATE TABLE IF NOT EXISTS `mydb`.`StockStand` (
   `id_Stand` INT NOT NULL,
   `id_livro` INT NOT NULL,
@@ -148,9 +122,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`StockStand` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`BarracaComida`
--- -----------------------------------------------------
+-- BarracaComida
 CREATE TABLE IF NOT EXISTS `mydb`.`BarracaComida` (
   `id_BarracaComida` INT NOT NULL DEFAULT 0,
   `numero` INT NOT NULL,
@@ -167,9 +139,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`BarracaComida` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Apresentação`
--- -----------------------------------------------------
+-- Apresentação
 CREATE TABLE IF NOT EXISTS `mydb`.`Apresentação` (
   `id_Apresentação` INT NOT NULL DEFAULT 0,
   `titulo` VARCHAR(100) NOT NULL,
@@ -204,9 +174,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Apresentação` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`SessaoAutografos`
--- -----------------------------------------------------
+-- SessaoAutografos
 CREATE TABLE IF NOT EXISTS `mydb`.`SessaoAutografos` (
   `id_SessaoAutografos` INT NOT NULL DEFAULT 0,
   `data_hora` DATETIME NOT NULL,
@@ -233,9 +201,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`SessaoAutografos` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Visitante`
--- -----------------------------------------------------
+-- Visitante
 CREATE TABLE IF NOT EXISTS `mydb`.`Visitante` (
   `id_Visitante` INT NOT NULL DEFAULT 0,
   `nome` VARCHAR(45) NOT NULL,
@@ -248,9 +214,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Visitante` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Administrador`
--- -----------------------------------------------------
+-- Administrador
 CREATE TABLE IF NOT EXISTS `mydb`.`Administrador` (
   `id_Administrador` INT NOT NULL DEFAULT 0,
   `nome` VARCHAR(45) NOT NULL,
@@ -263,9 +227,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Administrador` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Inscreve_Apresentação`
--- -----------------------------------------------------
+-- Inscreve_Apresentação
 CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Apresentação` (
   `id_Inscreve_Apresentação` INT NOT NULL DEFAULT 0,
   `data_incriçao` DATE NOT NULL,
@@ -288,9 +250,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Apresentação` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Inscreve_Sessao`
--- -----------------------------------------------------
+-- Inscreve_Sessao
 CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Sessao` (
   `id_Inscreve_Sessao` INT NOT NULL DEFAULT 0,
   `Data_inscriçao` DATE NOT NULL,
@@ -313,9 +273,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Sessao` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Inscreve_Feira`
--- -----------------------------------------------------
+-- Inscreve_Feira
 CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Feira` (
   `id_Inscreve_Feira` INT NOT NULL DEFAULT 0,
   `Data_inscriçao` DATE NOT NULL,
@@ -340,9 +298,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Inscreve_Feira` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`gere`
--- -----------------------------------------------------
+-- gere
 CREATE TABLE IF NOT EXISTS `mydb`.`gere` (
   `id_admin` INT NOT NULL,
   `id_feira` INT NOT NULL,
@@ -363,9 +319,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`gere` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Compra`
--- -----------------------------------------------------
+-- Compra
 CREATE TABLE IF NOT EXISTS `mydb`.`Compra` (
   `id_Compra` INT NOT NULL DEFAULT 0,
   `data_compra` DATE NOT NULL,
@@ -396,9 +350,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Compra` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Favorita`
--- -----------------------------------------------------
+-- Favorita
 CREATE TABLE IF NOT EXISTS `mydb`.`Favorita` (
   `id_visitante` INT NOT NULL DEFAULT 0,
   `id_livro` INT NOT NULL DEFAULT 0,
