@@ -14,11 +14,11 @@ DROP FUNCTION  IF EXISTS `fn_vagas_restantes_apresentacao`;
 
 -- Gatilhos
 
--- RF17: bloqueia inscrição em apresentação cheia
+-- RF17: bloqueia inscricao em apresentacao cheia
 DELIMITER $$
 
 CREATE TRIGGER `trg_inscricao_apresentacao_lotacao`
-BEFORE INSERT ON `Inscreve_Apresentação`
+BEFORE INSERT ON `Inscreve_Apresentacao`
 FOR EACH ROW
 BEGIN
     DECLARE v_inscritos_ativos INT;
@@ -26,21 +26,21 @@ BEGIN
 
     IF NEW.`estado` = 'ativa' THEN
 
-        SELECT `lotação_max`
+        SELECT `lotacao_max`
           INTO v_lotacao_max
-          FROM `Apresentação`
-         WHERE `id_Apresentação` = NEW.`id_increve_apresentaçao`
+          FROM `Apresentacao`
+         WHERE `id_apresentacao` = NEW.`id_apresentacao`
          FOR UPDATE;
 
         SELECT COUNT(*)
           INTO v_inscritos_ativos
-          FROM `Inscreve_Apresentação`
-         WHERE `id_increve_apresentaçao` = NEW.`id_increve_apresentaçao`
+          FROM `Inscreve_Apresentacao`
+         WHERE `id_apresentacao` = NEW.`id_apresentacao`
            AND `estado` = 'ativa';
 
         IF v_inscritos_ativos >= v_lotacao_max THEN
             SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Inscrição recusada: lotação máxima da apresentação atingida.';
+            SET MESSAGE_TEXT = 'Inscricao recusada: lotacao maxima da apresentacao atingida.';
         END IF;
 
     END IF;
@@ -49,7 +49,7 @@ END$$
 DELIMITER ;
 
 
--- RF17: bloqueia inscrição em sessão de autógrafos cheia
+-- RF17: bloqueia inscricao em sessao de autografos cheia
 DELIMITER $$
 
 CREATE TRIGGER `trg_inscricao_sessao_lotacao`
@@ -61,21 +61,21 @@ BEGIN
 
     IF NEW.`estado` = 'ativa' THEN
 
-        SELECT `lotaçao_max`
+        SELECT `lotacao_max`
           INTO v_lotacao_max
           FROM `SessaoAutografos`
-         WHERE `id_SessaoAutografos` = NEW.`id_sessao_inscreve`
+         WHERE `id_sessao` = NEW.`id_sessao`
          FOR UPDATE;
 
         SELECT COUNT(*)
           INTO v_inscritos_ativos
           FROM `Inscreve_Sessao`
-         WHERE `id_sessao_inscreve` = NEW.`id_sessao_inscreve`
+         WHERE `id_sessao` = NEW.`id_sessao`
            AND `estado` = 'ativa';
 
         IF v_inscritos_ativos >= v_lotacao_max THEN
             SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Inscrição recusada: lotação máxima da sessão de autógrafos atingida.';
+            SET MESSAGE_TEXT = 'Inscricao recusada: lotacao maxima da sessao de autografos atingida.';
         END IF;
 
     END IF;
@@ -95,13 +95,13 @@ BEGIN
 
     SELECT `quantidade` INTO v_stock_atual
       FROM `StockStand`
-     WHERE `id_Stand` = NEW.`id_stand`
+     WHERE `id_stand` = NEW.`id_stand`
        AND `id_livro` = NEW.`id_livro`
      FOR UPDATE;
 
     IF v_stock_atual IS NULL THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'O livro indicado não está disponível neste stand.';
+        SET MESSAGE_TEXT = 'O livro indicado nao esta disponivel neste stand.';
     END IF;
 
     IF v_stock_atual < NEW.`quantidade` THEN
@@ -111,7 +111,7 @@ BEGIN
 
     UPDATE `StockStand`
        SET `quantidade` = `quantidade` - NEW.`quantidade`
-     WHERE `id_Stand` = NEW.`id_stand`
+     WHERE `id_stand` = NEW.`id_stand`
        AND `id_livro` = NEW.`id_livro`;
 END$$
 
@@ -120,7 +120,7 @@ DELIMITER ;
 
 -- Procedimentos
 
--- Recalcula estado_vagas a partir das inscrições ativas
+-- Recalcula estado_vagas a partir das inscricoes ativas
 DELIMITER $$
 
 CREATE PROCEDURE `atualizar_estado_vagas_apresentacao`(
@@ -130,24 +130,24 @@ BEGIN
     DECLARE v_lotacao   INT DEFAULT 0;
     DECLARE v_inscritos INT DEFAULT 0;
 
-    SELECT `lotação_max` INTO v_lotacao
-      FROM `Apresentação`
-     WHERE `id_Apresentação` = p_id_apresentacao;
+    SELECT `lotacao_max` INTO v_lotacao
+      FROM `Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao;
 
     SELECT COUNT(*) INTO v_inscritos
-      FROM `Inscreve_Apresentação`
-     WHERE `id_increve_apresentaçao` = p_id_apresentacao
+      FROM `Inscreve_Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao
        AND `estado` = 'ativa';
 
-    UPDATE `Apresentação`
-       SET `estado_vagas` = IF(v_inscritos >= v_lotacao, ' esgotado', 'disponível')
-     WHERE `id_Apresentação` = p_id_apresentacao;
+    UPDATE `Apresentacao`
+       SET `estado_vagas` = IF(v_inscritos >= v_lotacao, 'esgotado', 'disponivel')
+     WHERE `id_apresentacao` = p_id_apresentacao;
 END$$
 
 DELIMITER ;
 
 
--- RF15/RF17: inscrição em apresentação com validação de lotação
+-- RF15/RF17: inscricao em apresentacao com validacao de lotacao
 DELIMITER $$
 
 CREATE PROCEDURE `inscrever_visitante_apresentacao`(
@@ -171,45 +171,45 @@ BEGIN
 
     SELECT COUNT(*) INTO v_existe_visit
       FROM `Visitante`
-     WHERE `id_Visitante` = p_id_visitante;
+     WHERE `id_visitante` = p_id_visitante;
 
     IF v_existe_visit = 0 THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Visitante não encontrado.';
+        SET MESSAGE_TEXT = 'Visitante nao encontrado.';
     END IF;
 
-    SELECT COUNT(*), MAX(`lotação_max`)
+    SELECT COUNT(*), MAX(`lotacao_max`)
       INTO v_existe_apres, v_lotacao_max
-      FROM `Apresentação`
-     WHERE `id_Apresentação` = p_id_apresentacao
+      FROM `Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao
      FOR UPDATE;
 
     IF v_existe_apres = 0 THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Apresentação não encontrada.';
+        SET MESSAGE_TEXT = 'Apresentacao nao encontrada.';
     END IF;
 
     SELECT COUNT(*) INTO v_inscritos_ativos
-      FROM `Inscreve_Apresentação`
-     WHERE `id_increve_apresentaçao` = p_id_apresentacao
+      FROM `Inscreve_Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao
        AND `estado` = 'ativa';
 
     IF v_inscritos_ativos >= v_lotacao_max THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Lotação máxima atingida — inscrição recusada.';
+        SET MESSAGE_TEXT = 'Lotacao maxima atingida - inscricao recusada.';
     END IF;
 
-    INSERT INTO `Inscreve_Apresentação`
-           (`data_incriçao`, `estado`,
-            `id_visitante_increve`, `id_increve_apresentaçao`)
+    INSERT INTO `Inscreve_Apresentacao`
+           (`data_inscricao`, `estado`,
+            `id_visitante`, `id_apresentacao`)
     VALUES (CURDATE(), 'ativa', p_id_visitante, p_id_apresentacao);
 
     SET p_id_inscricao = LAST_INSERT_ID();
 
     IF (v_inscritos_ativos + 1) >= v_lotacao_max THEN
-        UPDATE `Apresentação`
-           SET `estado_vagas` = ' esgotado'
-         WHERE `id_Apresentação` = p_id_apresentacao;
+        UPDATE `Apresentacao`
+           SET `estado_vagas` = 'esgotado'
+         WHERE `id_apresentacao` = p_id_apresentacao;
     END IF;
 
     COMMIT;
@@ -218,7 +218,7 @@ END$$
 DELIMITER ;
 
 
--- RF19: cancelamento lógico (preserva histórico) e liberta vaga
+-- RF19: cancelamento logico (preserva historico) e liberta vaga
 DELIMITER $$
 
 CREATE PROCEDURE `cancelar_inscricao_apresentacao`(
@@ -236,25 +236,25 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT `estado`, `id_increve_apresentaçao`
+    SELECT `estado`, `id_apresentacao`
       INTO v_estado_atual, v_id_apresentacao
-      FROM `Inscreve_Apresentação`
-     WHERE `id_Inscreve_Apresentação` = p_id_inscricao
+      FROM `Inscreve_Apresentacao`
+     WHERE `id_inscreve_apresentacao` = p_id_inscricao
      FOR UPDATE;
 
     IF v_estado_atual IS NULL THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Inscrição não encontrada.';
+        SET MESSAGE_TEXT = 'Inscricao nao encontrada.';
     END IF;
 
     IF v_estado_atual = 'cancelada' THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Inscrição já se encontra cancelada.';
+        SET MESSAGE_TEXT = 'Inscricao ja se encontra cancelada.';
     END IF;
 
-    UPDATE `Inscreve_Apresentação`
+    UPDATE `Inscreve_Apresentacao`
        SET `estado` = 'cancelada'
-     WHERE `id_Inscreve_Apresentação` = p_id_inscricao;
+     WHERE `id_inscreve_apresentacao` = p_id_inscricao;
 
     CALL `atualizar_estado_vagas_apresentacao`(v_id_apresentacao);
 
@@ -264,7 +264,7 @@ END$$
 DELIMITER ;
 
 
--- Funções
+-- Funcoes
 
 -- Vagas restantes (lotacao - inscritos ativos)
 DELIMITER $$
@@ -278,13 +278,13 @@ BEGIN
     DECLARE v_lotacao   INT DEFAULT 0;
     DECLARE v_inscritos INT DEFAULT 0;
 
-    SELECT `lotação_max` INTO v_lotacao
-      FROM `Apresentação`
-     WHERE `id_Apresentação` = p_id_apresentacao;
+    SELECT `lotacao_max` INTO v_lotacao
+      FROM `Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao;
 
     SELECT COUNT(*) INTO v_inscritos
-      FROM `Inscreve_Apresentação`
-     WHERE `id_increve_apresentaçao` = p_id_apresentacao
+      FROM `Inscreve_Apresentacao`
+     WHERE `id_apresentacao` = p_id_apresentacao
        AND `estado` = 'ativa';
 
     RETURN GREATEST(v_lotacao - v_inscritos, 0);

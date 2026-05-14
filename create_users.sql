@@ -1,6 +1,6 @@
-CREATE USER 'admin_livros'@'localhost'   IDENTIFIED BY 'Admin@2026';
-CREATE USER 'gestor_livros'@'localhost'  IDENTIFIED BY 'Gestor@2026';
-CREATE USER 'consulta_livros'@'localhost' IDENTIFIED BY 'Consulta@2026';
+CREATE USER IF NOT EXISTS 'admin_livros'@'localhost'    IDENTIFIED BY 'Admin@2026';
+CREATE USER IF NOT EXISTS 'gestor_livros'@'localhost'   IDENTIFIED BY 'Gestor@2026';
+CREATE USER IF NOT EXISTS 'consulta_livros'@'localhost' IDENTIFIED BY 'Consulta@2026';
 
 -- admin: acesso total
 GRANT ALL PRIVILEGES ON mydb.* TO 'admin_livros'@'localhost';
